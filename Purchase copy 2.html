@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <label for="ComputerNo" class="col-sm-2 col-form-label">Computer No</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" id="ComputerNo" name="ComputerNo">
+                        </div>
+                        <label for="Vendor" class="col-sm-2 col-form-label">Vendor</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" id="Vendor" name="Vendor">
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <label for="Date" class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" id="Date" name="Date">
+                        </div>
+                        <label for="InvoiceNo" class="col-sm-2 col-form-label">Invoice No</label>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" id="InvoiceNo" name="InvoiceNo">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div>
+                                <div class="p-2">
+                                    <h3 class="font-size-16"><strong>Order summary</strong></h3>
+                                </div>
+                                <div>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <td><strong>Product</strong></td>
+                                                    <td class="text-center"><strong>Batch No</strong></td>
+                                                    <td class="text-center"><strong>Expiry</strong></td>
+                                                    <td class="text-end"><strong>Quantity</strong></td>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="orderItems">
+                                                <tr class="order-row">
+                                                    <td class="text-center">
+                                                        <select class="form-select" id="ProductData" name="ProductData">
+                                                            <option selected disabled value=""></option>
+                                                            <!-- Add your options here -->
+                                                        </select>
+                                                    </td>
+                                                    <td class="text-center"><input class="form-control" type="text" placeholder="" id="BatchNoData" name="BatchNoData"></td>
+                                                    <td class="text-center"><input class="form-control" type="text" placeholder="" id="ExpiryData" name="ExpiryData"></td>
+                                                    <td class="text-center"><input class="form-control" type="text" placeholder="" id="QuantityData" name="QuantityData"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="d-print-none">
+                                        <div class="float-end">
+                                            <a href="#" id="addRowBtn" class="btn btn-primary waves-effect waves-light ms-2">Add Row</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+</div> <!-- end container -->
+
+<!-- JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#addRowBtn').click(function(e) {
+            e.preventDefault();
+
+            // Clone the last row in the table body
+            var newRow = $('#orderItems').find('tr.order-row:last').clone();
+
+            // Clear the input fields in the cloned row
+            newRow.find('input').val('');
+
+            // Append the cloned row to the table body
+            $('#orderItems').append(newRow);
+        });
+    });
+</script>
+
+</body>
+</html>
