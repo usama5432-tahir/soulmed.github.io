@@ -951,7 +951,7 @@
                 });
             });-->
       
-        <script>
+        <!-- <script>
             $(document).ready(function() {
                 $('#addRowBtn').click(function(e) {
                     e.preventDefault();
@@ -1000,6 +1000,68 @@
         
                     // Insert the cloned row before the last non-product row
                     $('#orderItems tr.order-row:last').after(newRow);
+                });
+            });
+        </script> -->
+        <script>
+            $(document).ready(function() {
+                $('#addRowBtn').click(function(e) {
+                    e.preventDefault();
+    
+                    // Clone the first row in the table body
+                    var newRow = $('#orderItems').find('tr.order-row:first').clone();
+    
+                    // Find the highest index currently used in the IDs
+                    var highestIndex = 0;
+                    $('#orderItems').find('tr.order-row').each(function() {
+                        $(this).find('input, select').each(function() {
+                            var id = $(this).attr('id');
+                            if (id) {
+                                var indexMatch = id.match(/\d+$/);
+                                if (indexMatch) {
+                                    var index = parseInt(indexMatch[0]);
+                                    if (index > highestIndex) {
+                                        highestIndex = index;
+                                    }
+                                }
+                            }
+                        });
+                    });
+    
+                    // Increment the index for the new row
+                    var newIndex = highestIndex + 1;
+    
+                    // Clear the input fields and update IDs and names in the cloned row
+                    newRow.find('input, select').each(function() {
+                        var id = $(this).attr('id');
+                        var name = $(this).attr('name');
+    
+                        if (id) {
+                            var newId = id.replace(/\d*$/, '') + newIndex;
+                            $(this).attr('id', newId);
+                        }
+    
+                        if (name) {
+                            var newName = name.replace(/\d*$/, '') + newIndex;
+                            $(this).attr('name', newName);
+                        }
+    
+                        // Clear the value
+                        $(this).val('');
+                    });
+    
+                    // Insert the cloned row before the last non-product row
+                    $('#orderItems tr.order-row:last').after(newRow);
+    
+                    // Add the delete button to the new row
+                    newRow.find('.deleteRowBtn').remove(); // Remove existing delete button
+                    newRow.append('<td class="text-center"><button class="btn btn-danger deleteRowBtn">Delete</button></td>');
+                });
+    
+                // Use event delegation to handle delete button clicks
+                $('#orderItems').on('click', '.deleteRowBtn', function(e) {
+                    e.preventDefault();
+                    $(this).closest('tr').remove();
                 });
             });
         </script>
